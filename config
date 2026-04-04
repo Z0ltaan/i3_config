@@ -1,0 +1,358 @@
+###########################################################################
+###########################################################################
+################       Start of all the settings          #################
+###########################################################################
+###########################################################################
+
+# $Mod = WINDOWS key or Super key or Mod4
+# Mod1 = ALT key
+# Control = CTRL key
+# Shift = SHIFT key
+# Escape = ESCAPE key
+# Return = ENTER or RETURN key
+# Pause = PAUSE key
+# Print = PRINT key
+# Tab = TAB key
+
+set $mod Mod4
+
+
+################### SPECIAL KEYS #########################
+
+set $volume_modifier 5
+set $brightness_modifier 5
+
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +$volume_modifier% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -$volume_modifier% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+
+bindsym $mod+F5 exec --no-startup-id brightnessctl set +$brightness_modifier%
+bindsym $mod+F4 exec --no-startup-id brightnessctl set $brightness_modifier%-
+
+bindsym $mod+Escape exec --no-startup-id ~/.config/i3/scripts/toggle_touchpad.sh
+bindsym Print exec --no-startup-id gnome-screenshot
+bindsym Shift+Print exec gnome-screenshot -a 
+# --no-startup-id gnome-screenshot -a
+
+
+################### STOPPING A PROGRAM #########################
+
+# kill focused window
+bindsym $mod+q kill
+
+################### MOVING AROUND ##############################
+
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+k focus down
+bindsym $mod+j focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+j move up
+bindsym $mod+Shift+l move right
+
+
+################### TILING PARAMETERS ##############################
+
+# orientation for new workspaces 
+default_orientation horizontal
+
+# split in horizontal orientation
+bindsym $mod+b split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+# bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+f layout toggle split
+
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+################### RELOAD AND EXIT #####################
+
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
+
+
+################### RESIZE ##############################
+
+
+# resize window (you can also use the mouse for that)
+
+bindsym $mod+r mode "resize"
+
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym h resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+
+################### FONTS ######################
+
+font pango:Noto Mono Regular 11
+
+################### MENU ######################
+
+# start dmenu
+bindsym $mod+d exec dmenu_run -fn 'NotoMonoRegular:bold:pixelsize=16' 
+
+# start j4-dmenu (based on desktop files in /usr/share/applications)
+# https://github.com/enkore/j4-dmenu-desktop
+bindsym $mod+shift+d exec j4-dmenu-desktop --dmenu="dmenu -fn 'NotoMonoRegular:bold:pixelsize=16' -l 20"
+#bindsym $mod+shift+d exec j4-dmenu-desktop --dmenu="dmenu -fn 'monospace:bold:pixelsize=15'"
+
+# start up i3-dmenu-desktop
+bindsym $mod+mod1+d exec --no-startup-id i3-dmenu-desktop --dmenu="dmenu -fn 'Inconsolata:bold:pixelsize=20S'"
+
+################### DUAL SCREEN ######################
+
+# setting variables for later use
+# use xrandr and/or arandr to know the names of your monitors
+# use this line to tell which monitor is on the right
+# xrandr --output DVI-I-2 --right-of DVI-I-1 --auto
+
+# my current setup
+# set $firstMonitor DVI-I-1
+# set $secondMonitor DVI-I-2
+#
+# set $firstMonitor LVDS1
+#set $secondMonitor LVDS1
+
+#set $firstMonitor DVI-I-2
+#set $secondMonitor VGA-0
+
+#set $firstMonitor DVI-I-2
+#set $secondMonitor DVI-I-3
+
+#set $firstMonitor DVI-0
+#set $secondMonitor DVI-1
+
+# workspace 1 output $firstMonitor
+# workspace 2 output $firstMonitor
+# workspace 3 output $firstMonitor
+# workspace 4 output $firstMonitor
+# workspace 5 output $firstMonitor
+# workspace 6 output $secondMonitor
+# workspace 7 output $secondMonitor
+# workspace 8 output $secondMonitor
+# workspace 9 output $secondMonitor
+# workspace 10 output $secondMonitor
+
+# switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+
+################### EXECUTE ######################
+
+
+# TRAY APPLICATIONS
+
+# num lock activated
+# exec_always --no-startup-id numlockx on
+# # insync
+# exec insync start
+# # volume
+# exec pasystray
+# #exec volti
+# #exec volumeicon
+# #variety
+# exec variety
+#
+# # clipit
+# exec clipit
+#
+
+#Music
+#exec --no-startup-id spotify
+#for_window [class="Spotify"] focus
+
+
+################### SHORTCUTS WORKSPACES ######################
+
+# switch to workspace with urgent window automatically
+for_window [urgent=latest] focus
+
+################### BAR ######################
+
+bindsym $mod+n bar mode toggle
+
+################### BORDER ######################
+
+default_border pixel 2
+default_floating_border pixel 1
+
+################### COLORS ######################
+
+set $rosewater #f2d5cf
+set $flamingo #eebebe
+set $pink #f4b8e4
+set $mauve #ca9ee6
+set $red #e78284
+set $maroon #ea999c
+set $peach #ef9f76
+set $yellow #e5c890
+set $green #a6d189
+set $teal #81c8be
+set $sky #99d1db
+set $sapphire #85c1dc
+set $blue #8caaee
+set $lavender #babbf1
+set $text #c6d0f5
+set $subtext1 #b5bfe2
+set $subtext0 #a5adce
+set $overlay2 #949cbb
+set $overlay1 #838ba7
+set $overlay0 #737994
+set $surface2 #626880
+set $surface1 #51576d
+set $surface0 #414559
+set $base #303446
+set $mantle #292c3c
+set $crust #232634
+
+bar {
+
+  workspace_buttons yes
+  font pango:Noto Moto 11
+  separator_symbol "│"
+  status_command i3status -c ~/.config/i3/i3status.conf
+  colors {
+    background         $base
+    statusline         $text
+    focused_statusline $text
+    focused_separator  $text
+
+    # # target           border bg        text
+    # focused_workspace  $base  $mauve    $crust
+    # active_workspace   $base  $surface2 $text
+    # inactive_workspace $base  $base     $text
+    # urgent_workspace   $base  $red      $crust
+
+    # target           border bg        text
+    focused_workspace  $base  $green    $crust
+    active_workspace   $base  $surface2 $text
+    inactive_workspace $base  $base     $text
+    urgent_workspace   $base  $red      $crust
+  }
+}
+
+# target                 title     bg    text   indicator  border
+client.focused           $base     $base $text  $green     $green
+client.focused_inactive  $overlay0 $base $text  $rosewater $surface2
+client.unfocused         $overlay0 $base $text  $rosewater $surface2
+client.urgent            $peach    $base $peach $overlay0  $peach
+client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
+client.background        $base
+
+# # target                 title     bg    text   indicator  border
+# client.focused           $lavender $base $text  $rosewater $lavender
+# client.focused_inactive  $overlay0 $base $text  $rosewater $overlay0
+# client.unfocused         $overlay0 $base $text  $rosewater $overlay0
+# client.urgent            $peach    $base $peach $overlay0  $peach
+# client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
+# client.background        $base
+
+################### DISTRO DEPENDENT ######################
+
+# terminal
+bindsym $mod+Return exec alacritty --config-file ~/.config/alacritty/i3-alacritty.toml;focus
+
+# explorer
+bindsym $mod+e exec nemo;focus
+
+
+################# USER APPLICATIONS TO START AT BOOT #################
+
+exec --no-startup-id picom --config ~/.config/picom/picom.conf --fade-in-step=1 --fade-out-step=1 --fade-delta=0
+
+exec --no-startup-id setxkbmap -option grp:alt_shift_toggle us,ru
+exec --no-startup-id ~/.config/i3/alternating_layouts.py
+
+# NOTE: Just for X window system
+exec --no-startup-id xrdb -merge ~/.config/i3/.Xresources
+exec --no-startup-id xset r rate 350 40
+exec --no-startup-id xset s off
+exec --no-startup-id xset -dpms
+exec --no-startup-id feh --bg-fill ~/Documents/Backgrounds/bgi3_city_greengray_1920_1080.jpg
+#~/Documents/Backgrounds/51fe5dca-0b83-40c2-a71b-40f08caa7ae4_683d921406cbc3.26979040.jpg
+#Authentication dialog
+
+#arch/antergos
+#exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+#Linux Mint
+# exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+
+# update
+
+#Linux Mint
+# exec mintupdate-launcher
+
+# bluetooth
+# exec blueberry-tray
+#exec --no-startup-id blueman-applet
+
+# network
+#antergos
+# exec --no-startup-id nm-applet
+
+#linux mint
+#exec network-manager-applet
+
+# Configure display settings
+# exec --no-startup-id xrandr --dpi 94
