@@ -1,10 +1,4 @@
-###########################################################################
-###########################################################################
-################       Start of all the settings          #################
-###########################################################################
-###########################################################################
-
-# $Mod = WINDOWS key or Super key or Mod4
+# $Mod = WINDOWS key or Mod4
 # Mod1 = ALT key
 # Control = CTRL key
 # Shift = SHIFT key
@@ -31,8 +25,7 @@ bindsym $mod+F4 exec --no-startup-id brightnessctl set $brightness_modifier%-
 
 bindsym $mod+Escape exec --no-startup-id ~/.config/i3/scripts/toggle_touchpad.sh
 bindsym Print exec --no-startup-id gnome-screenshot
-bindsym Shift+Print exec gnome-screenshot -a 
-# --no-startup-id gnome-screenshot -a
+bindsym Shift+Print exec --no-startup-id gnome-screenshot -a
 
 
 ################### STOPPING A PROGRAM #########################
@@ -73,9 +66,6 @@ bindsym $mod+b split h
 # split in vertical orientation
 bindsym $mod+v split v
 
-# enter fullscreen mode for the focused container
-# bindsym $mod+f fullscreen toggle
-
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
@@ -103,9 +93,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i
 
 ################### RESIZE ##############################
 
-
-# resize window (you can also use the mouse for that)
-
+# resize window
 bindsym $mod+r mode "resize"
 
 mode "resize" {
@@ -130,47 +118,10 @@ font pango:Noto Mono Regular 11
 # start dmenu
 bindsym $mod+d exec dmenu_run -fn 'NotoMonoRegular:bold:pixelsize=16' 
 
-# start j4-dmenu (based on desktop files in /usr/share/applications)
-# https://github.com/enkore/j4-dmenu-desktop
-bindsym $mod+shift+d exec j4-dmenu-desktop --dmenu="dmenu -fn 'NotoMonoRegular:bold:pixelsize=16' -l 20"
-#bindsym $mod+shift+d exec j4-dmenu-desktop --dmenu="dmenu -fn 'monospace:bold:pixelsize=15'"
-
 # start up i3-dmenu-desktop
-bindsym $mod+mod1+d exec --no-startup-id i3-dmenu-desktop --dmenu="dmenu -fn 'Inconsolata:bold:pixelsize=20S'"
+bindsym $mod+shift+d exec --no-startup-id i3-dmenu-desktop --dmenu="dmenu -fn 'NotoMonoRegular:bold:pixelsize=16'"
 
 ################### DUAL SCREEN ######################
-
-# setting variables for later use
-# use xrandr and/or arandr to know the names of your monitors
-# use this line to tell which monitor is on the right
-# xrandr --output DVI-I-2 --right-of DVI-I-1 --auto
-
-# my current setup
-# set $firstMonitor DVI-I-1
-# set $secondMonitor DVI-I-2
-#
-# set $firstMonitor LVDS1
-#set $secondMonitor LVDS1
-
-#set $firstMonitor DVI-I-2
-#set $secondMonitor VGA-0
-
-#set $firstMonitor DVI-I-2
-#set $secondMonitor DVI-I-3
-
-#set $firstMonitor DVI-0
-#set $secondMonitor DVI-1
-
-# workspace 1 output $firstMonitor
-# workspace 2 output $firstMonitor
-# workspace 3 output $firstMonitor
-# workspace 4 output $firstMonitor
-# workspace 5 output $firstMonitor
-# workspace 6 output $secondMonitor
-# workspace 7 output $secondMonitor
-# workspace 8 output $secondMonitor
-# workspace 9 output $secondMonitor
-# workspace 10 output $secondMonitor
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -199,28 +150,8 @@ bindsym $mod+Shift+0 move container to workspace 10
 
 ################### EXECUTE ######################
 
-
-# TRAY APPLICATIONS
-
 # num lock activated
 # exec_always --no-startup-id numlockx on
-# # insync
-# exec insync start
-# # volume
-# exec pasystray
-# #exec volti
-# #exec volumeicon
-# #variety
-# exec variety
-#
-# # clipit
-# exec clipit
-#
-
-#Music
-#exec --no-startup-id spotify
-#for_window [class="Spotify"] focus
-
 
 ################### SHORTCUTS WORKSPACES ######################
 
@@ -277,12 +208,6 @@ bar {
     focused_statusline $text
     focused_separator  $text
 
-    # # target           border bg        text
-    # focused_workspace  $base  $mauve    $crust
-    # active_workspace   $base  $surface2 $text
-    # inactive_workspace $base  $base     $text
-    # urgent_workspace   $base  $red      $crust
-
     # target           border bg        text
     focused_workspace  $base  $green    $crust
     active_workspace   $base  $surface2 $text
@@ -299,14 +224,6 @@ client.urgent            $peach    $base $peach $overlay0  $peach
 client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
 client.background        $base
 
-# # target                 title     bg    text   indicator  border
-# client.focused           $lavender $base $text  $rosewater $lavender
-# client.focused_inactive  $overlay0 $base $text  $rosewater $overlay0
-# client.unfocused         $overlay0 $base $text  $rosewater $overlay0
-# client.urgent            $peach    $base $peach $overlay0  $peach
-# client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
-# client.background        $base
-
 ################### DISTRO DEPENDENT ######################
 
 # terminal
@@ -321,38 +238,16 @@ bindsym $mod+e exec nemo;focus
 exec --no-startup-id picom --config ~/.config/picom/picom.conf --fade-in-step=1 --fade-out-step=1 --fade-delta=0
 
 exec --no-startup-id setxkbmap -option grp:alt_shift_toggle us,ru
+
 exec --no-startup-id ~/.config/i3/alternating_layouts.py
 
 # NOTE: Just for X window system
 exec --no-startup-id xrdb -merge ~/.config/i3/.Xresources
-exec --no-startup-id xset r rate 350 40
+exec --no-startup-id xset r rate 320 50
 exec --no-startup-id xset s off
 exec --no-startup-id xset -dpms
 exec --no-startup-id feh --bg-fill ~/Documents/Backgrounds/bgi3_city_greengray_1920_1080.jpg
-#~/Documents/Backgrounds/51fe5dca-0b83-40c2-a71b-40f08caa7ae4_683d921406cbc3.26979040.jpg
-#Authentication dialog
-
-#arch/antergos
-#exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-
-#Linux Mint
-# exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
-
-# update
-
-#Linux Mint
-# exec mintupdate-launcher
 
 # bluetooth
 # exec blueberry-tray
 #exec --no-startup-id blueman-applet
-
-# network
-#antergos
-# exec --no-startup-id nm-applet
-
-#linux mint
-#exec network-manager-applet
-
-# Configure display settings
-# exec --no-startup-id xrandr --dpi 94
